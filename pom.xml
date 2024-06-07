@@ -59,7 +59,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>MainKt</mainClass>
+                    <mainClass>org.belog.vkmusim.MainKt</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -83,6 +83,13 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>1.9.23</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.21.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
