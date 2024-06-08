@@ -16,6 +16,10 @@ class VkMusicHandler(
         val musicButton = element(By.id("l_aud"))
         musicButton.click()
         pause()
+        if (importMode == ImportMode.ADVANCED) {
+            println("Input the order of the add button (default is 2 of 3):")
+            addTrackButtonOrder = readln().toInt()
+        }
     }
 
     fun tryAddTrack(request: String) {
@@ -45,11 +49,6 @@ class VkMusicHandler(
         val top1Song = top3List[0]
         mouseOn(top1Song)
         pause()
-
-        if (importMode == ImportMode.ADVANCED) {
-            println("Input the order of the add button (default is 2 of 3):")
-            addTrackButtonOrder = readln().toInt()
-        }
 
         val hiddenActions = top1Song.findElement(By.xpath("//div[@class='_audio_row__actions audio_row__actions']"))
         println(hiddenActions)
