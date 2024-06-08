@@ -22,12 +22,7 @@ class WebDriverInitializer {
             |0. Exit
         """.trimMargin())
         val command = readln()
-        try {
-            return doCreateWebDriver(command)
-        } catch (e: Exception) {
-            println("Error: seems like you don't have requested browser installed")
-            return null
-        }
+        return doCreateWebDriver(command)
     }
 
     private fun doCreateWebDriver(command: String): WebDriver? {

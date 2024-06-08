@@ -25,6 +25,7 @@ class VkMusicHandler(
 
     private fun doSearch(request: String) {
         val searchTextBox = element(By.id("audio_search"))
+        searchTextBox.clear()
         searchTextBox.sendKeys(request)
         pause()
         val searchButton = element(By.xpath("//button[@aria-label='Поиск']"))
