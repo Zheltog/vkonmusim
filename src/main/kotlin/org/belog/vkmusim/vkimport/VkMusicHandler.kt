@@ -1,14 +1,13 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.vkimport
 
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.interactions.Actions
 
 class VkMusicHandler(
     webDriver: WebDriver,
     pauseMs: Long = 1000L,
     private val importMode: ImportMode
-): VkHandler(webDriver, pauseMs) {
+): VkBaseHandler(webDriver, pauseMs) {
 
     private var addTrackButtonOrder = 2
 
@@ -19,14 +18,21 @@ class VkMusicHandler(
         pause()
     }
 
-    fun searchForTrack(request: String) {
+    fun tryAddTrack(request: String) {
+        doSearch(request)
+        doAddTop1()
+    }
+
+    private fun doSearch(request: String) {
         val searchTextBox = element(By.id("audio_search"))
         searchTextBox.sendKeys(request)
         pause()
         val searchButton = element(By.xpath("//button[@aria-label='Поиск']"))
         searchButton.click()
         pause()
+    }
 
+    private fun doAddTop1() {
         val globalDiv = element(By.xpath("//div[@data-audio-context='search_global_audios']"))
         val top3Block = globalDiv
             .findElement(By.xpath("//div[@class='ui_gallery__inner_cont']"))
@@ -36,9 +42,7 @@ class VkMusicHandler(
         val top3List = top3Block.findElements(By.tagName("li"))
 
         val top1Song = top3List[0]
-        Actions(webDriver)
-            .moveToElement(top1Song)
-            .perform()
+        mouseOn(top1Song)
         pause()
 
         if (importMode == ImportMode.ADVANCED) {
@@ -50,6 +54,6 @@ class VkMusicHandler(
         println(hiddenActions)
         val hiddenButtons = hiddenActions.findElements(By.tagName("button"))
         hiddenButtons[addTrackButtonOrder - 1].click()
-        readln()
+        pause()
     }
 }

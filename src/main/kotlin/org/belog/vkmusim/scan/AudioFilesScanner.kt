@@ -1,8 +1,9 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.scan
 
 import org.apache.tika.parser.ParseContext
 import org.apache.tika.parser.Parser
 import org.apache.tika.parser.mp3.Mp3Parser
+import org.belog.vkmusim.common.WorkerWithExtraLogging
 import org.xml.sax.ContentHandler
 import org.xml.sax.helpers.DefaultHandler
 import java.io.File
@@ -17,7 +18,7 @@ class AudioFilesScanner: WorkerWithExtraLogging() {
     private lateinit var resultFilePath: String
 
     fun scan() {
-        println("Input directory path you want to scan:")
+        println("Input directory path you want to scan for mp3 files:")
         val pathString = readln()
         val file = File(pathString)
         if (!file.isDirectory) {

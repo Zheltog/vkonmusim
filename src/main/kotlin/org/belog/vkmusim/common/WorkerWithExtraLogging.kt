@@ -1,11 +1,11 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.common
 
 open class WorkerWithExtraLogging {
 
     private var logExtra: Boolean = false
 
     protected fun initLogExtraFlag() {
-        println("""Do you want extra log to be printed?
+        println("""Do you want extra logs to be printed?
             |1. Yes
             |2. No
         """.trimMargin())

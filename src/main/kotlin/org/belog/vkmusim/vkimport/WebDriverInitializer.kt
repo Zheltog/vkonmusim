@@ -1,4 +1,4 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.vkimport
 
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -7,8 +7,7 @@ import org.openqa.selenium.edge.EdgeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.safari.SafariDriver
 
-
-class WebDriverInitHandler {
+class WebDriverInitializer {
 
     companion object {
         var currentMode: DriverMode = DriverMode.SYNTHETIC
@@ -47,7 +46,7 @@ class WebDriverInitHandler {
     private fun doCreateChromeDriver(): WebDriver? {
         val options = ChromeOptions()
 
-        println("""Use actual browser instead of creating synthetic one?
+        println("""Use actual browser instead of initializing synthetic one?
             |1. Yes
             |2. No
             |3. Want to hack me???

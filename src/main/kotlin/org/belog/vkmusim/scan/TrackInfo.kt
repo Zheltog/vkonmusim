@@ -1,4 +1,4 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.scan
 
 data class TrackInfo(
     val artist: String? = null,

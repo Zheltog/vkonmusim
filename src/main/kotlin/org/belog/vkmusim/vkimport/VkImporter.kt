@@ -1,5 +1,6 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.vkimport
 
+import org.belog.vkmusim.common.WorkerWithExtraLogging
 import org.openqa.selenium.WebDriver
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -23,18 +24,18 @@ class VkImporter: WorkerWithExtraLogging() {
                 else -> ImportMode.QUICK
             }
 
-            println("Input path for result file that was previously generated:")
+            println("Input path of result file that was previously generated:")
             parsedFilePath = readln()
 
             if (mode == ImportMode.ADVANCED) {
                 initLogExtraFlag()
             }
 
-            val driverInitHandler = WebDriverInitHandler()
+            val driverInitHandler = WebDriverInitializer()
             val driver: WebDriver = driverInitHandler.createWebDriver() ?: return
 
             if (mode == ImportMode.ADVANCED) {
-                println("Input pause value (ms) between browser operations (1000, for example):")
+                println("Input pause value (ms) between browser operations (1000 is optimal):")
                 pauseMs = readln().toLong()
             }
 
@@ -57,6 +58,6 @@ class VkImporter: WorkerWithExtraLogging() {
 
     private fun tryAddTrack(request: String) {
         tryLogExtra("Trying to add track by search request: $request")
-        musicHandler.searchForTrack(request)
+        musicHandler.tryAddTrack(request)
     }
 }

@@ -1,4 +1,4 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.vkimport
 
 enum class DriverMode {
     SYNTHETIC, ACTUAL

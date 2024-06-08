@@ -1,11 +1,11 @@
-package org.belog.vkmusim
+package org.belog.vkmusim.vkimport
 
 import org.openqa.selenium.WebDriver
 
 class VkLoginHandler(
     webDriver: WebDriver,
     pauseMs: Long = 1000L
-): VkHandler(webDriver, pauseMs) {
+): VkBaseHandler(webDriver, pauseMs) {
 
     private val baseUrl = "https://vk.com/"
 
@@ -13,8 +13,8 @@ class VkLoginHandler(
         println("Opening VK base page...")
         get(baseUrl)
         pause()
-        if (WebDriverInitHandler.currentMode == DriverMode.SYNTHETIC) {
-            println("Scan QR code to authorize, then perform any input here")
+        if (WebDriverInitializer.currentMode == DriverMode.SYNTHETIC) {
+            println("Scan QR code to authorize, then perform any input here:")
             readln()
         }
     }
