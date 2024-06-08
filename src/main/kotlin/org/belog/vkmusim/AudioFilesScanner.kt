@@ -11,11 +11,10 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class AudioFilesScanner {
+class AudioFilesScanner: WorkerWithExtraLogging() {
 
     private val parsedTracks: MutableList<TrackInfo> = mutableListOf()
     private lateinit var resultFilePath: String
-    private var logExtra: Boolean = false
 
     fun scan() {
         println("Input directory path you want to scan:")
@@ -29,16 +28,7 @@ class AudioFilesScanner {
         println("Input path for result file that will be generated:")
         resultFilePath = readln()
 
-        println("""Do you want extra log to be printed?
-            |1. Yes
-            |2. No
-        """.trimMargin())
-        val command = readln()
-        logExtra = when(command) {
-            "1" -> true
-            "2" -> false
-            else -> false
-        }
+        initLogExtraFlag()
 
         println("Started scanning...")
         scanDir(file)
@@ -108,11 +98,5 @@ class AudioFilesScanner {
         }
         val file = Paths.get(resultFilePath)
         Files.write(file, lines, StandardCharsets.UTF_8)
-    }
-
-    private fun tryLogExtra(message: String) {
-        if (logExtra) {
-            println(message)
-        }
     }
 }
