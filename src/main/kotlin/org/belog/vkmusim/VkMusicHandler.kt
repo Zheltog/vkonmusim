@@ -6,8 +6,11 @@ import org.openqa.selenium.interactions.Actions
 
 class VkMusicHandler(
     webDriver: WebDriver,
-    pauseMs: Long = 1000L
+    pauseMs: Long = 1000L,
+    private val importMode: ImportMode
 ): VkHandler(webDriver, pauseMs) {
+
+    private var addTrackButtonOrder = 2
 
     fun openMusicSection() {
         println("Opening music section, make sure you got it showed...")
@@ -37,15 +40,16 @@ class VkMusicHandler(
             .moveToElement(top1Song)
             .perform()
         pause()
+
+        if (importMode == ImportMode.ADVANCED) {
+            println("Input the order of the add button (default is 2 of 3):")
+            addTrackButtonOrder = readln().toInt()
+        }
+
         val hiddenActions = top1Song.findElement(By.xpath("//div[@class='_audio_row__actions audio_row__actions']"))
         println(hiddenActions)
-//        val firstSongPlayButton = top1Song
-//            .findElement(By.xpath("//button[@aria-label='Добавить в мою музыку']"))
-//        println(firstSongPlayButton)
-//        firstSongPlayButton.click()
-//        WebDriverWait(webDriver, java.time.Duration.ofMillis(pauseMs))
-//            .until(ExpectedConditions.elementToBeClickable(firstSongPlayButton))
-//            .click()
+        val hiddenButtons = hiddenActions.findElements(By.tagName("button"))
+        hiddenButtons[addTrackButtonOrder - 1].click()
         readln()
     }
 }

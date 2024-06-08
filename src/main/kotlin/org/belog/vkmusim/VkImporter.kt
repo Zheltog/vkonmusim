@@ -41,7 +41,7 @@ class VkImporter: WorkerWithExtraLogging() {
             val loginHandler = VkLoginHandler(driver, pauseMs)
             loginHandler.login()
 
-            musicHandler = VkMusicHandler(driver, pauseMs)
+            musicHandler = VkMusicHandler(driver, pauseMs, mode)
             musicHandler.openMusicSection()
 
             println("Starting to add tracks...")
