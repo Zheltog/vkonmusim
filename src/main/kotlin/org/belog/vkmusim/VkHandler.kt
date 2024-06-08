@@ -17,6 +17,10 @@ open class VkHandler(
         }
     }
 
+    fun get(url: String) {
+        webDriver.get(url)
+    }
+
     protected fun element(by: By): WebElement {
         return webDriver.findElement(by)
     }
