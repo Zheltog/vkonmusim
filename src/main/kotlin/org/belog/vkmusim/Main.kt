@@ -1,18 +1,18 @@
 package org.belog.vkmusim
 
-import org.openqa.selenium.WebDriver
-
 fun main() {
-    try {
-        val driverInitHandler = WebDriverInitHandler()
-        val driver: WebDriver = driverInitHandler.createWebDriver() ?: return
-
-        val loginHandler = VkLoginHandler(driver)
-        loginHandler.login()
-
-        val musicHandler = VkMusicHandler(driver)
-        musicHandler.openMusicSection()
-    } catch (e: Exception) {
-        println("Error: ${e.message}")
+    val vmi = VkonMusIm()
+    println("""Hello
+        |Select what you want to do or input 0 to exit:
+        |1. Scan directory for mp3 audio files
+        |2. Import parsed tracks to VK
+        |0. Exit
+    """.trimMargin())
+    val command = readln()
+    when(command) {
+        "1" -> vmi.processScan()
+        "2" -> vmi.processImport()
+        "0" -> return
+        else -> return
     }
 }
