@@ -51,6 +51,7 @@ class VkImporter: WorkerWithExtraLogging() {
                     tryAddTrack(line)
                 }
             }
+            println("Import finished")
         } catch (e: Exception) {
             println("Error: ${e.message}")
         }

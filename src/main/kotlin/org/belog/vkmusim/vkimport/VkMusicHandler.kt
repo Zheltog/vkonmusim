@@ -12,19 +12,23 @@ class VkMusicHandler(
     private var addTrackButtonOrder = 2
 
     fun openMusicSection() {
-        println("Opening music section, make sure you got it showed...")
-        val musicButton = element(By.id("l_aud"))
-        musicButton.click()
-        pause()
-        if (importMode == ImportMode.ADVANCED) {
-            println("Input the order of the add button (default is 2 of 3):")
-            addTrackButtonOrder = readln().toInt()
+        tryUntilSuccess {
+            println("Opening music section, make sure you got it showed...")
+            val musicButton = element(By.id("l_aud"))
+            musicButton.click()
+            pause()
+            if (importMode == ImportMode.ADVANCED) {
+                println("Input the order of the add button (default is 2 of 3):")
+                addTrackButtonOrder = readln().toInt()
+            }
         }
     }
 
     fun tryAddTrack(request: String) {
-        doSearch(request)
-        doAddTop1()
+        tryUntilSuccess {
+            doSearch(request)
+            doAddTop1()
+        }
     }
 
     private fun doSearch(request: String) {

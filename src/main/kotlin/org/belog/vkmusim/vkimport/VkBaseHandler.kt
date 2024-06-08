@@ -31,4 +31,13 @@ open class VkBaseHandler(
             .moveToElement(element)
             .perform()
     }
+
+    protected fun tryUntilSuccess(action: () -> Unit) {
+        try {
+            action()
+        } catch (e: Exception) {
+            println("Error while try: ${e.message}")
+            tryUntilSuccess(action)
+        }
+    }
 }
