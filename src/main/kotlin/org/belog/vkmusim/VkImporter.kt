@@ -8,20 +8,35 @@ class VkImporter: WorkerWithExtraLogging() {
 
     private lateinit var parsedFilePath: String
     private lateinit var musicHandler: VkMusicHandler
+    private lateinit var mode: ImportMode
     private var pauseMs: Long = 1000L
 
     fun import() {
         try {
-            println("Input path for result file that will be generated:")
+            println("""Select mode (quick by default):
+                |1. Quick mode
+                |2. Advanced mode
+            """.trimMargin())
+            mode = when(readln()) {
+                "1" -> ImportMode.QUICK
+                "2" -> ImportMode.ADVANCED
+                else -> ImportMode.QUICK
+            }
+
+            println("Input path for result file that was previously generated:")
             parsedFilePath = readln()
 
-            initLogExtraFlag()
+            if (mode == ImportMode.ADVANCED) {
+                initLogExtraFlag()
+            }
 
             val driverInitHandler = WebDriverInitHandler()
             val driver: WebDriver = driverInitHandler.createWebDriver() ?: return
 
-            println("Input pause value (ms) between browser operations (1000, for example):")
-            pauseMs = readln().toLong()
+            if (mode == ImportMode.ADVANCED) {
+                println("Input pause value (ms) between browser operations (1000, for example):")
+                pauseMs = readln().toLong()
+            }
 
             val loginHandler = VkLoginHandler(driver, pauseMs)
             loginHandler.login()

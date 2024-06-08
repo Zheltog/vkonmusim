@@ -2,29 +2,50 @@ package org.belog.vkmusim
 
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.interactions.Actions
 
 class VkMusicHandler(
     webDriver: WebDriver,
     pauseMs: Long = 1000L
 ): VkHandler(webDriver, pauseMs) {
 
-    private val musicButtonId = "l_aud"
-    private val searchTextBoxId = "audio_search"
-    private val searchButtonXpath = "//button[aria-label='Поиск']"
-
     fun openMusicSection() {
         println("Opening music section, make sure you got it showed...")
-        val musicButton = element(By.id(musicButtonId))
+        val musicButton = element(By.id("l_aud"))
         musicButton.click()
         pause()
     }
 
     fun searchForTrack(request: String) {
-        val searchTextBox = element(By.id(searchTextBoxId))
+        val searchTextBox = element(By.id("audio_search"))
         searchTextBox.sendKeys(request)
         pause()
-//        val searchButton = element(By.xpath(searchButtonXpath))
-//        searchButton.click()
-//        pause()
+        val searchButton = element(By.xpath("//button[@aria-label='Поиск']"))
+        searchButton.click()
+        pause()
+
+        val globalDiv = element(By.xpath("//div[@data-audio-context='search_global_audios']"))
+        val top3Block = globalDiv
+            .findElement(By.xpath("//div[@class='ui_gallery__inner_cont']"))
+            .findElement(By.xpath("//div[@class='ui_gallery__inner ']"))
+            .findElement(By.xpath("//div[@class='ui_gallery_item']"))
+            .findElements(By.xpath("//ul[@class='audio_recoms_audios_block_col']"))[0]
+        val top3List = top3Block.findElements(By.tagName("li"))
+
+        val top1Song = top3List[0]
+        Actions(webDriver)
+            .moveToElement(top1Song)
+            .perform()
+        pause()
+        val hiddenActions = top1Song.findElement(By.xpath("//div[@class='_audio_row__actions audio_row__actions']"))
+        println(hiddenActions)
+//        val firstSongPlayButton = top1Song
+//            .findElement(By.xpath("//button[@aria-label='Добавить в мою музыку']"))
+//        println(firstSongPlayButton)
+//        firstSongPlayButton.click()
+//        WebDriverWait(webDriver, java.time.Duration.ofMillis(pauseMs))
+//            .until(ExpectedConditions.elementToBeClickable(firstSongPlayButton))
+//            .click()
+        readln()
     }
 }

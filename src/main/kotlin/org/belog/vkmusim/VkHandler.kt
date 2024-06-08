@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement
 
 open class VkHandler(
     protected val webDriver: WebDriver,
-    private val pauseMs: Long
+    protected val pauseMs: Long
 ) {
 
     fun pause() {
