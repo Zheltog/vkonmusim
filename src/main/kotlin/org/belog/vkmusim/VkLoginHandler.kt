@@ -13,7 +13,9 @@ class VkLoginHandler(
         println("Opening VK base page...")
         get(baseUrl)
         pause()
-        println("Scan QR code to authorize, then perform any input here")
-        readln()
+        if (WebDriverInitHandler.currentMode == DriverMode.SYNTHETIC) {
+            println("Scan QR code to authorize, then perform any input here")
+            readln()
+        }
     }
 }
